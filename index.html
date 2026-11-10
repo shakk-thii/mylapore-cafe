@@ -684,6 +684,31 @@ body[data-page="menu"] .tabs button.on,#main[data-page="menu"] .tabs button.on{b
 .mi .dots{border-bottom-color:rgba(92,25,19,.35)}
 .mcols{column-rule-color:rgba(233,162,59,.45)}
 .fine{border-top-color:var(--maroon);color:var(--maroon)}
+
+/* ================= menu: dish descriptions, chef recommendations and gluten free marks (Nov 2026 menu) ================= */
+.mit{padding:7px 0}
+.mit .mi{padding:0}
+.md{font:italic 500 14px/1.4 var(--disp);color:var(--muted);margin-top:3px;padding-right:12%}
+.msub{font:italic 500 14px/1.4 var(--disp);color:var(--muted);margin:-4px 0 6px}
+.mit.chef .n{color:var(--maroon);font-weight:500}
+.m-chef{display:inline-block;width:15px;height:15px;margin-left:6px;vertical-align:-2px;color:var(--maroon)}
+.m-gf{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;margin-left:7px;border:1px solid var(--teal);border-radius:50%;font:600 7.5px/1 var(--body);letter-spacing:.02em;color:var(--teal);vertical-align:2px}
+.msec h3 .m-gf{vertical-align:5px}
+.mlegend{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 28px;margin-top:6px;font:500 12px/1 var(--body);letter-spacing:.06em;color:var(--muted)}
+.mlegend span{display:inline-flex;align-items:center}
+.mlegend .m-gf{margin:0 7px 0 0;vertical-align:0}
+.mlegend .m-chef{margin:0 6px 0 0}
+.mlegend .chef{color:var(--maroon)}
+/* menu: balanced column grid, every column ends level */
+.mcols.mgrid{columns:auto;display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch}
+.mcols.mgrid[data-n="2"]{grid-template-columns:repeat(2,1fr)}
+.mgrid .mcol{display:flex;flex-direction:column;padding:0 22px;min-width:0}
+.mgrid .mcol:first-child{padding-left:0}
+.mgrid .mcol:last-child{padding-right:0}
+.mgrid .mcol+.mcol{border-left:1px solid rgba(233,162,59,.45)}
+.mgrid .mcol>:last-child{margin-bottom:0}
+.mgrid .msnap{flex:1 1 auto;display:flex;flex-direction:column;min-height:250px}
+.mgrid .msnap img{flex:1 1 200px;min-height:200px;height:auto;aspect-ratio:auto}
 .course .r{color:var(--marigold)}.course h4{color:var(--maroon)}.course .s{color:var(--teal)}
 .menu-cta .ob{color:var(--maroon)!important;border-color:var(--maroon)!important}
 .menu-cta .ob:hover{background:var(--maroon)!important;color:var(--saffron)!important}
@@ -919,18 +944,85 @@ body[data-page="menu"] .tabs button.on,#main[data-page="menu"] .tabs button.on{b
 <script>/* Mylapore Cafe: shared brand data & helpers (menu, tasting, marks, kolam) */
 window.MY = (function () {
   const MENU = {
-    "Start da": [["Mango Tango Rasam", 7], ["Kovai Kalan Mushroom", 10], ["Parapu Vada Soundal", 10], ["Curd Rice Arancini", 11], ["Cheesy Pesto Panniyaram", 10], ["Royale Pink King Kachori", 11], ["Jackfruit Aloo Puri Taco", 12], ["Punugulu Emotion", 9]],
-    "Idli kadai": [["Suda Suda Idli", 9], ["Mysore Mangalore Thatte Idli", 10], ["Milagaipodi Idli Fries", 10], ["Kutti Idli Sambar", 12]],
-    "Va va vada": [["T-Kadai Medhu Vada", 8], ["Parapu Dal Vada", 8], ["Mami Thayir Vada", 10], ["Ghee Sambar Vada", 11]],
-    "Dosa stage": [["Sada Dosa", 12], ["Masala Dosa", 14], ["Mysore Masala", 15], ["Podi Masala", 15], ["MLA Pesarattu", 14], ["Guntur", 16], ["Amul Cheese & Chilli", 16], ["Madurai Kari Mushroom", 16], ["Paneer Bhurji", 16], ["Ghee Roast Masala", 15], ["Garlic Butter Masala", 16], ["Schewan Paneer", 17], ["Chocolate Nutella Dosa", 11]],
-    "Bangalore benne": [["Benne Classic", 13], ["Benne Masala", 14], ["Benne Mysore", 15], ["Benne Paneer", 16], ["Benne Mushroom", 16], ["Benne Cheesy Pesto", 16]],
-    "My dear uthappam": [["Onion Uthappam", 14], ["Vadivelu Uthappam", 15], ["Peri Peri Cheesy Uthappam", 16], ["Mushroom Kari Uthappam", 16]],
-    "Rice": [["Sambar Rice Bowl", 12], ["Guti Vankaya Kaju Pulao", 16], ["Lemon Saddam Bowl", 12], ["Puli Sadam Bowl", 12], ["Ambur Paneer Biryani", 17]],
-    "Parotta / idhiyappam": [["Kaikari Korma", 16], ["Uthukuli Butter Paneer", 17], ["Jackfruit Kathal Paya", 17]],
-    "Curries": [["Black Kadala Korma", 15], ["Gungura Pappu", 15], ["Guti Vankaya Kura", 16], ["White Paneer Butter Masala", 17]],
-    "China border": [["Fried Rice (Veg / Paneer)", "14 / 16"], ["Noodles (Veg / Paneer)", "14 / 16"], ["Gobi Manchurian", 14], ["Chilly Paneer / Mushroom", 15], ["Schezwan Paneer / Mushroom", 15]],
-    "Desserts": [["Mylapore Kapi Cheese Cake", 9], ["Tirunelveli Halwa", 10], ["Chechi Parapu Payasam", 10], ["Strawberry Madness", 12]],
-    "Beverages": [["Filter Kapi", 5], ["Hot Hot Ginger Chai", 5], ["Chilled Moor Thata", 6], ["Ice Filter Kapi", 7], ["Silk Rose Milk", 8], ["Malgova Mango Lassi", 8]]
+    "Start da": [
+      ["Mango Tango Rasam", 7, "Ripe Mango, Tamarind, Tomato, Black Pepper, Cumin, Curry Leaves", "g"],
+      ["Kovai Kalan Mushroom", 10, "Corn Chips, Button Mushrooms, Onion, Bell Peppers, Kovai Style Spice Blend, Garlic"],
+      ["Parapu Vada Soundal", 10, "Split Lentil, Tempered Chickpea Sundal, Fresh Coconut and Milk"],
+      ["Curd Rice Arancini", 11, "Golden Crisp Curd Rice Balls, Potato Podi Mass, Mango Pickle Aioli, Tapioca Chips", "c"],
+      ["Cheesy Pesto Panniyaram", 10, "Crisp Rice Lentil Dumplings, Basil Pesto, Mozzarella Cheese", "c"],
+      ["Royale Pink King Kachori", 11, "Flaky Pastry, Spiced Lentil Filling, Beet Yogurt, Tamarind Chutney"],
+      ["Jackfruit Aloo Puri Taco", 12, "Crisp Puri Shell, Spiced Raw Jackfruit, Potato Masala, Pomegranate"],
+      ["Punugulu Emotion", 9, "Telegu Speciality, Crisp Batter Fritters, Green Chili, Cumin, Ginger"]],
+    "Idli kadai": [
+      ["Suda Suda Idli", 9, "Steamed Fresh Nostalgic"],
+      ["Mysore Mangalore Thatte Idli", 10, "Large Flat Idli, Mylapore Cafe Special Podi, Desi Ghee"],
+      ["Milagaipodi Idli Fries", 10, "Crisp Idli Strips, Milagai Podi, Curry Leaf", "c"],
+      ["Kutti Idli Sambar", 12, "Bite-Size Mini Idlis, Drumstick Sambar, Shallots, Desi Ghee, Cilantro"]],
+    "Va va vada": [
+      ["T-Kadai Medhu Vada", 8, "Fluffy Urad Dal Vada, Black Peppercorn, Ginger, Curry Leaf"],
+      ["Parapu Dal Vada", 8, "Crisp Chana Dal Fritter, Onion, Fennel, Green Chili"],
+      ["Mylapore Thayir Vada", 10, "Soft Vada, Whipped Yogurt, Mustard Tempering, Boondi, Pomegranate"],
+      ["Ghee Sambar Vada", 11, "Soft Medhu Vada, Hot Sambar, Desi Ghee"]],
+    "Dosa stage": [
+      ["Sada Dosa", 12, "Thin Crisp Rice Lentil Crepe"],
+      ["Masala Dosa", 14, "Crisp Crepe, Spiced Potato Masala, Onion, Curry Leaf"],
+      ["Mysore Masala", 15, "Crisp Crepe, Red Chili Garlic Spread, Spiced Potato Masala"],
+      ["Podi Masala", 15, "Crisp Crepe, Mylapore Cafe Special Podi, Spiced Potato Masala"],
+      ["MLA Pesarattu", 14, "Green Moong Dal Crepe, Ginger, Green Chili"],
+      ["Guntur Karam Dosa", 16, "Guntur Kaaram Masala, Onion Spread, Spiced Potato"],
+      ["Amul Cheese & Chilli", 16, "Crisp Crepe, Melted Amul Cheese, Green Chili"],
+      ["Madurai Kari Mushroom", 16, "Crisp Crepe, Pepper Roasted Button Mushroom", "c"],
+      ["Paneer Bhurji", 16, "Crisp Crepe, Spiced Paneer Bhurji, Onion, Tomato"],
+      ["Ghee Roast Masala", 15, "Crisp Ghee Roasted Crepe, Spiced Potato Masala"],
+      ["Garlic Butter Masala", 16, "Roasted Garlic, Salted Butter, Kashmiri Chilly, Spiced Potato Masala"],
+      ["Schezwan Paneer", 17, "Cottage Cheese, Schezwan Sauce And Bell Peppers"],
+      ["Chocolate Nutella Dosa", 11, "Nutella Spread, Chocolate Melt, Kid's Favourite"]],
+    "Bangalore benne": [
+      ["Benne Classic", 13, "Unique Dosa Batter With Our Chef Benne Podi, Bangalore Favourite"],
+      ["Benne Masala", 14, "Unique Dosa Batter, Potato Masala, Mylapore Cafe Butter", "c"],
+      ["Benne Mysore", 15, "Unique Dosa Batter, Mysore Chilli Spread, Mylapore Cafe Butter"],
+      ["Benne Paneer", 16, "Unique Dosa Batter, Grated Paneer Filling, Mylapore Cafe Butter"],
+      ["Benne Mushroom", 16, "Unique Dosa Batter, Peppery Button Mushroom Masala, Mylapore Cafe Butter"],
+      ["Benne Cheesy Pesto", 16, "Crisp Benne Dosa, Basil-Coriander Pesto, Mylapore Cafe Butter, Mozzarella"]],
+    "My dear uthappam": [
+      ["Onion Uthappam", 14, "Thick Pancake, Chopped Red Onion, Mylapore Cafe Special Podi, Desi Ghee"],
+      ["Vadivelu Uthappam", 15, "Thick Pancake, Onion, Tomato, Carrot, Green Chili & Cilantro", "c"],
+      ["Peri Peri Cheesy Uthappam", 16, "Thick Pancake, Peri Peri Masala Cheese, Bell Peppers"],
+      ["Mushroom Kari Uthappam", 16, "Thick Pancake, Pepper Roasted Butter Mushroom"]],
+    "Rice": [
+      ["Bisi Bele Bath", 12, "Rice & Lentils Cooked With Vegetables, Sambar Spices, Appalam And Ginger Pachadi"],
+      ["Guti Vankaya Kaju Pulao", 16, "Stuffed Baby Brinjal, Cashewnut, Fragrant Rice, Peanut", "c"],
+      ["Lemon Saddam Bowl", 12, "Tempered With Lemon, Ginger, Green Chili, Appalam, Ginger Pachadi"],
+      ["Puli Sadam Bowl", 12, "Authentic Temple Style Tamarind Rice, Appalam, Ginger Pachadi"],
+      ["Ambur Paneer Biryani", 17, "Seraga Samba, Ambur-Style Spiced Paneer, Mint"],
+      ["Ghee Veen Pongal", 11, "Soft Rice And Moong Dal Tempered With Pepper And Ghee"]],
+    "Parotta / idhiyappam": [
+      ["Kaikari Korma", 16, "Mixed Vegetables, Cashew, Coconut And Fennel Seeds"],
+      ["Uthukuli Butter Paneer", 17, "South Indian Butter Paneer, With Coconut, Cashew Nut, Poppy Seeds"],
+      ["Jackfruit Kathal Paya", 17, "Fresh Jackfruit, Paya Spices, Coconut And Cinnamon", "c"]],
+    "Curries": [
+      ["Black Kadala Korma", 15, "Black Chickpeas, Coconut Cashew Gravy, Fennel, Whole Spices, Curry Leaves"],
+      ["Gungura Pappu", 15, "Tangy Gongura Leaves, Toor Dal, Garlic, Red Chilli, Ghee Tempering"],
+      ["Guti Vankaya Kura", 16, "Stuffed Baby Brinjal, Peanut, Sesame, Coconut Masala, Tamarind"],
+      ["White Paneer Butter Masala", 17, "Paneer, Creamy Cashew Gravy, White Coconut Gravy, White Butter, Cashew"]],
+    "China border": [
+      ["Fried Rice (Veg / Paneer)", "14 / 16", "Wok-Tossed Basmati Rice, Crunchy Vegetables Or Cubed Paneer, Spring Onion, Garlic"],
+      ["Noodles (Veg / Paneer)", "14 / 16", "Stir-Fried Noodles, Shredded Cabbage, Carrot, Capsicum, Or Golden Paneer, Garlic, Soy"],
+      ["Gobi Manchurian", 14, "Crisp-Fried Cauliflower Florets, Tossed In A Tangy Garlic-Ginger Soy Sauce, Spring Onion, Green Chilli"],
+      ["Chilly Paneer", 15, "Crisp Paneer Or Button Mushrooms, Capsicum, Onion, Green Chilli, Garlic, A Spicy Soy Glaze"],
+      ["Schezwan Paneer / Mushroom", 15, "Paneer Or Mushrooms, Fiery Schezwan Sauce, Dried Red Chilli, Garlic, Capsicum, Spring Onion"]],
+    "Desserts": [
+      ["Mylapore Kapi Cheese Cake", 9, "Filter Coffee Cheese Cake"],
+      ["Tirunelveli Halwa", 10, "Wheat Halwa, Desi Ghee, Jaggery, Cashewnut, Cardamom"],
+      ["Chechi Parapu Payasam", 10, "Moong Dal, Milk, Jaggery, Coconut, Cashew-Nuts & Kis-Mis"],
+      ["Strawberry Madness", 12, "Fresh Strawberry, Blended Cream, Strawberry Compote (must try)", "c"]],
+    "Beverages": [
+      ["Filter Kapi", 5, "Traditional South Indian Filter Coffee Brewed Strong & Frothy With Milk"],
+      ["Hot Hot Ginger Chai", 5, "Milk, Ginger And Tea Leaves"],
+      ["Chilled Moor Thata", 6, "Chilled Spiced Buttermilk, Ginger, Green Chili, Curry Leaves, Cilantro"],
+      ["Ice Filter Kapi", 7, "Iced Traditional South Indian Filter Coffee Brewed Strong & Frothy With Milk"],
+      ["Silk Rose Milk", 8, "Chilled Milk, Rose Syrup, Rose Petals"],
+      ["Malgova Mango Lassi", 8, "Chilled Yogurt, Ripe Mango Pulp, Cardamom"]]
   };
   const TASTING = [
     ["Mango Tango Rasam", "Chilled rasam shot with a mango kick", "Start da"],
@@ -1086,7 +1178,32 @@ window.MY = (function () {
   function menuPage() {
     const M = MYD.MENU || {}, notes = { 'Start da': 'Small plates', 'Idli kadai': 'Steamed fresh', 'Dosa stage': 'Off the tawa', 'Bangalore benne': 'Butter rich', 'Rice': 'Full meals', 'Desserts': 'To finish', 'Beverages': 'Kaapi and more' };
     const snaps = { 'Va va vada': ['snap-idli', 'Idli and vada, the classic pair.'], 'Bangalore benne': ['snap-thali', 'A full table, Mylapore style.'], 'Curries': ['tasting-hero', 'Kaapi, always.'] };
-    $('#mcols').innerHTML = Object.entries(M).map(([cat, items]) => `<section class="msec"><h3>${cat}<small>${notes[cat] || ''}</small></h3>${items.map(([n, p]) => `<div class="mi"><span class="n">${n}</span><span class="dots"></span><span class="p">${MYD.price(p)}</span></div>`).join('')}</section>${snaps[cat] ? `<figure class="msnap"><img src="${img(snaps[cat][0])}" alt="" loading="lazy"><figcaption>${snaps[cat][1]}</figcaption></figure>` : ''}`).join('');
+    const subs = { 'Idli kadai': 'Served with chutneys and veg sambar', 'Va va vada': 'Served with chutneys and veg sambar', 'Dosa stage': 'Served with coconut, kara and nilgiri chutney, vegetable sambar', 'Bangalore benne': 'Served with coconut, kara and nilgiri chutney, vegetable sambar', 'Curries': 'Served with ghee kaju pulav', 'China border': 'Rockstar fried rice & superstar noodles' };
+    const gfCats = { 'Idli kadai': 1, 'Va va vada': 1, 'Dosa stage': 1 };
+    const GF = '<span class="m-gf" title="Gluten free" aria-label="Gluten free">GF</span>';
+    const CHEF = '<svg class="m-chef" viewBox="0 0 24 24" role="img" aria-label="Chef recommendation"><title>Chef recommendation</title><path d="M7 18.5h10v2.2H7zM7.2 17.2l-.3-4.1A4 4 0 0 1 6.3 5.6a4.3 4.3 0 0 1 5.7-2 4.3 4.3 0 0 1 5.7 2 4 4 0 0 1-.6 7.5l-.3 4.1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+    const secHTML = cat => `<section class="msec"><h3><span>${cat}${gfCats[cat] ? GF : ''}</span><small>${notes[cat] || ''}</small></h3>${subs[cat] ? `<p class="msub">${subs[cat]}</p>` : ''}${M[cat].map(([n, p, d, f = '']) => `<div class="mit${f.includes('c') ? ' chef' : ''}"><div class="mi"><span class="n">${n}${f.includes('g') ? GF : ''}${f.includes('c') ? CHEF : ''}</span><span class="dots"></span><span class="p">${MYD.price(p)}</span></div>${d ? `<p class="md">${d}</p>` : ''}</div>`).join('')}</section>`;
+    const snapHTML = cat => `<figure class="msnap"><img src="${img(snaps[cat][0])}" alt="" loading="lazy"><figcaption>${snaps[cat][1]}</figcaption></figure>`;
+    const block = k => k.charAt(0) === '@' ? snapHTML(k.slice(1)) : (M[k] ? secHTML(k) : '');
+    /* balanced columns: whole sections in menu order, photos stretch so every column ends level */
+    const LAYOUT = {
+      3: [['Start da', '@Bangalore benne', 'Idli kadai', 'Va va vada', '@Va va vada'], ['Dosa stage', 'Bangalore benne', 'My dear uthappam', 'Rice'], ['Parotta / idhiyappam', 'Curries', '@Curries', 'China border', 'Desserts', 'Beverages']],
+      2: [['Start da', 'Idli kadai', 'Va va vada', '@Va va vada', 'Dosa stage', 'Bangalore benne', '@Bangalore benne'], ['My dear uthappam', 'Rice', 'Parotta / idhiyappam', 'Curries', '@Curries', 'China border', 'Desserts', 'Beverages']]
+    };
+    const box = $('#mcols');
+    const layoutMenu = () => {
+      if (!box.isConnected) return;
+      const w = box.getBoundingClientRect().width, n = w >= 1000 ? 3 : w >= 640 ? 2 : 1;
+      if (box.dataset.n === String(n)) return;
+      box.dataset.n = n;
+      box.classList.toggle('mgrid', n > 1);
+      box.innerHTML = n > 1 ? LAYOUT[n].map(col => `<div class="mcol">${col.map(block).join('')}</div>`).join('')
+        : Object.keys(M).map(cat => secHTML(cat) + (snaps[cat] ? snapHTML(cat) : '')).join('');
+    };
+    layoutMenu();
+    if (!window.__menuResize) { window.__menuResize = 1; let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { const b = document.getElementById('mcols'); if (b && b.__layout) b.__layout(); }, 150); }); }
+    box.__layout = layoutMenu;
+    if (!$('.mlegend')) box.insertAdjacentHTML('afterend', `<p class="mlegend"><span>${GF} Gluten free</span><span class="chef">${CHEF} Chef recommendation</span></p>`);
     $('#courses').innerHTML = (MYD.TASTING || []).map((c, i) => `<div class="course"><span class="r">${MYD.ROMAN[i]}</span><div><h4>${c[0]}</h4><p>${c[1]}</p></div><span class="s">${c[2]}</span></div>`).join('');
     $$('.tabs button').forEach(b => b.addEventListener('click', () => {
       $$('.tabs button').forEach(x => x.classList.toggle('on', x === b));
